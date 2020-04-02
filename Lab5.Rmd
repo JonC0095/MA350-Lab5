@@ -30,9 +30,37 @@ q3.x[[1]]
 IQR.x[[1]]
 ```
 
-I have sorted x and found the length of x to be 12. This indicates to me that the first quartile should be the 3rd term in and that third quartile should be the 9th term. We should also note that 28.7 is an outlier and will skew this. Thus, q1.x produced -4.525 which seems reasonably close to the assumption, and q3.x produced 4.9, which is the correct value. 4.9-(-4.525)= 9.425 and so the value produced by IQR.x is correct.
+I have sorted x and found the length of x to be 12. This indicates to me that the first quartile should be the 3rd term in and that third quartile should be the 9th term. We should also note that 28.7 is a possible outlier and might skew this. Thus, q1.x produced -4.525 which seems reasonably close to the assumption, and q3.x produced 4.9, which is the correct value. 4.9-(-4.525)= 9.425 and so the value produced by IQR.x is correct.
 
 
+## Problem 2:
+```{r}
+
+quartiles <- function(x){
+  
+  quantiles.x <- quantile(x, probs=c(0.25, 0.75))
+  
+  quant.v <- c(quantiles.x[[1]],quantiles.x[[2]], quantiles.x[[2]]-quantiles.x[[1]])
+  
+  return(quant.v)
+  
+}
+
+quartiles(x)
+```
+
+The results, (-4.525), 4.9, & 9.452, are the same to those found in problem 1 for the first quantile, third quantile, & IQR, respectively.
+
+## Problem 3:
+```{r}
+
+Outlier.min
+
+Outlier.max
+
+quartiles(x)
+
+```
 
 
 

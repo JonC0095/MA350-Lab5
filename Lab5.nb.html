@@ -1805,12 +1805,50 @@ sort.x</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>I have sorted x and found the length of x to be 12. This indicates to me that the first quartile should be the 3rd term in and that third quartile should be the 9th term. We should also note that 28.7 is an outlier and will skew this. Thus, q1.x produced -4.525 which seems reasonably close to the assumption, and q3.x produced 4.9, which is the correct value. 4.9-(-4.525)= 9.425 and so the value produced by IQR.x is correct.</p>
+<p>I have sorted x and found the length of x to be 12. This indicates to me that the first quartile should be the 3rd term in and that third quartile should be the 9th term. We should also note that 28.7 is a possible outlier and might skew this. Thus, q1.x produced -4.525 which seems reasonably close to the assumption, and q3.x produced 4.9, which is the correct value. 4.9-(-4.525)= 9.425 and so the value produced by IQR.x is correct.</p>
+</div>
+<div id="problem-2" class="section level2">
+<h2>Problem 2:</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG5xdWFydGlsZXMgPC0gZnVuY3Rpb24oeCl7XG4gIFxuICBxdWFudGlsZXMueCA8LSBxdWFudGlsZSh4LCBwcm9icz1jKDAuMjUsIDAuNzUpKVxuICBcbiAgcXVhbnQudiA8LSBjKHF1YW50aWxlcy54W1sxXV0scXVhbnRpbGVzLnhbWzJdXSwgcXVhbnRpbGVzLnhbWzJdXS1xdWFudGlsZXMueFtbMV1dKVxuICBcbiAgcmV0dXJuKHF1YW50LnYpXG4gIFxufVxuXG5xdWFydGlsZXMoeClcbmBgYCJ9 -->
+<pre class="r"><code>
+quartiles &lt;- function(x){
+  
+  quantiles.x &lt;- quantile(x, probs=c(0.25, 0.75))
+  
+  quant.v &lt;- c(quantiles.x[[1]],quantiles.x[[2]], quantiles.x[[2]]-quantiles.x[[1]])
+  
+  return(quant.v)
+  
+}
+
+quartiles(x)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIC00LjUyNSAgNC45MDAgIDkuNDI1XG4ifQ== -->
+<pre><code>[1] -4.525  4.900  9.425</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>The results, (-4.525), 4.9, &amp; 9.452, are the same to those found in problem 1 for the first quantile, third quantile, &amp; IQR, respectively.</p>
+</div>
+<div id="problem-3" class="section level2">
+<h2>Problem 3:</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucXVhcnRpbGVzKHgpW1syXV1cbmBgYCJ9 -->
+<pre class="r"><code>quartiles(x)[[2]]</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDQuOVxuIn0= -->
+<pre><code>[1] 4.9</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxhYiAjNSBNQSAzNTAtMDEsIFNwcmluZyAyMDIwIg0KYXV0aG9yOiAiQ2FybGluLCBKb25hdGhhbiINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCiMgR2l0IGFuZCBHaXRIdWINCg0KIyMgUHJvYmxlbSAwOg0KDQojIyMgVVJMOiBodHRwczovL2dpdGh1Yi5jb20vSm9uQzAwOTUvTUEzNTAtTGFiNQ0KDQoNCiMgRmluZGluZyBPdXRsaWVyIFVzaW5nIFR1a2V5J3MgUnVsZS1vZi1UaHVtYg0KDQojIyBQcm9ibGVtIDE6DQoNCmBgYHtyfQ0KeCA8LWMoMi4yLCA3LjgsIC00LjQsIDAuMCwgLTEuMiwgMy45LCA0LjksIC01LjcsIC03LjksIC00LjksIDI4LjcsIDQuOSkNCnNvcnQueCA8LSBzb3J0KHgpDQoNCnExLnggPC0gcXVhbnRpbGUoeCwwLjI1KQ0KcTMueCA8LSBxdWFudGlsZSh4LDAuNzUpDQpJUVIueCA8LSBxMy54IC0gcTEueA0KDQpzb3J0LngNCmxlbmd0aCh4KQ0KcTEueFtbMV1dDQpxMy54W1sxXV0NCklRUi54W1sxXV0NCmBgYA0KDQpJIGhhdmUgc29ydGVkIHggYW5kIGZvdW5kIHRoZSBsZW5ndGggb2YgeCB0byBiZSAxMi4gVGhpcyBpbmRpY2F0ZXMgdG8gbWUgdGhhdCB0aGUgZmlyc3QgcXVhcnRpbGUgc2hvdWxkIGJlIHRoZSAzcmQgdGVybSBpbiBhbmQgdGhhdCB0aGlyZCBxdWFydGlsZSBzaG91bGQgYmUgdGhlIDl0aCB0ZXJtLiBXZSBzaG91bGQgYWxzbyBub3RlIHRoYXQgMjguNyBpcyBhbiBvdXRsaWVyIGFuZCB3aWxsIHNrZXcgdGhpcy4gVGh1cywgcTEueCBwcm9kdWNlZCAtNC41MjUgd2hpY2ggc2VlbXMgcmVhc29uYWJseSBjbG9zZSB0byB0aGUgYXNzdW1wdGlvbiwgYW5kIHEzLnggcHJvZHVjZWQgNC45LCB3aGljaCBpcyB0aGUgY29ycmVjdCB2YWx1ZS4gNC45LSgtNC41MjUpPSA5LjQyNSBhbmQgc28gdGhlIHZhbHVlIHByb2R1Y2VkIGJ5IElRUi54IGlzIGNvcnJlY3QuDQoNCg0KDQoNCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkxhYiAjNSBNQSAzNTAtMDEsIFNwcmluZyAyMDIwIg0KYXV0aG9yOiAiQ2FybGluLCBKb25hdGhhbiINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KLS0tDQoNCiMgR2l0IGFuZCBHaXRIdWINCg0KIyMgUHJvYmxlbSAwOg0KDQojIyMgVVJMOiBodHRwczovL2dpdGh1Yi5jb20vSm9uQzAwOTUvTUEzNTAtTGFiNQ0KDQoNCiMgRmluZGluZyBPdXRsaWVyIFVzaW5nIFR1a2V5J3MgUnVsZS1vZi1UaHVtYg0KDQojIyBQcm9ibGVtIDE6DQoNCmBgYHtyfQ0KeCA8LWMoMi4yLCA3LjgsIC00LjQsIDAuMCwgLTEuMiwgMy45LCA0LjksIC01LjcsIC03LjksIC00LjksIDI4LjcsIDQuOSkNCnNvcnQueCA8LSBzb3J0KHgpDQoNCnExLnggPC0gcXVhbnRpbGUoeCwwLjI1KQ0KcTMueCA8LSBxdWFudGlsZSh4LDAuNzUpDQpJUVIueCA8LSBxMy54IC0gcTEueA0KDQpzb3J0LngNCmxlbmd0aCh4KQ0KcTEueFtbMV1dDQpxMy54W1sxXV0NCklRUi54W1sxXV0NCmBgYA0KDQpJIGhhdmUgc29ydGVkIHggYW5kIGZvdW5kIHRoZSBsZW5ndGggb2YgeCB0byBiZSAxMi4gVGhpcyBpbmRpY2F0ZXMgdG8gbWUgdGhhdCB0aGUgZmlyc3QgcXVhcnRpbGUgc2hvdWxkIGJlIHRoZSAzcmQgdGVybSBpbiBhbmQgdGhhdCB0aGlyZCBxdWFydGlsZSBzaG91bGQgYmUgdGhlIDl0aCB0ZXJtLiBXZSBzaG91bGQgYWxzbyBub3RlIHRoYXQgMjguNyBpcyBhIHBvc3NpYmxlIG91dGxpZXIgYW5kIG1pZ2h0IHNrZXcgdGhpcy4gVGh1cywgcTEueCBwcm9kdWNlZCAtNC41MjUgd2hpY2ggc2VlbXMgcmVhc29uYWJseSBjbG9zZSB0byB0aGUgYXNzdW1wdGlvbiwgYW5kIHEzLnggcHJvZHVjZWQgNC45LCB3aGljaCBpcyB0aGUgY29ycmVjdCB2YWx1ZS4gNC45LSgtNC41MjUpPSA5LjQyNSBhbmQgc28gdGhlIHZhbHVlIHByb2R1Y2VkIGJ5IElRUi54IGlzIGNvcnJlY3QuDQoNCg0KIyMgUHJvYmxlbSAyOg0KYGBge3J9DQoNCnF1YXJ0aWxlcyA8LSBmdW5jdGlvbih4KXsNCiAgDQogIHF1YW50aWxlcy54IDwtIHF1YW50aWxlKHgsIHByb2JzPWMoMC4yNSwgMC43NSkpDQogIA0KICBxdWFudC52IDwtIGMocXVhbnRpbGVzLnhbWzFdXSxxdWFudGlsZXMueFtbMl1dLCBxdWFudGlsZXMueFtbMl1dLXF1YW50aWxlcy54W1sxXV0pDQogIA0KICByZXR1cm4ocXVhbnQudikNCiAgDQp9DQoNCnF1YXJ0aWxlcyh4KQ0KYGBgDQoNClRoZSByZXN1bHRzLCAoLTQuNTI1KSwgNC45LCAmIDkuNDUyLCBhcmUgdGhlIHNhbWUgdG8gdGhvc2UgZm91bmQgaW4gcHJvYmxlbSAxIGZvciB0aGUgZmlyc3QgcXVhbnRpbGUsIHRoaXJkIHF1YW50aWxlLCAmIElRUiwgcmVzcGVjdGl2ZWx5Lg0KDQojIyBQcm9ibGVtIDM6DQpgYGB7cn0NCg0KT3V0bGllci5taW4NCg0KT3V0bGllci5tYXgNCg0KcXVhcnRpbGVzKHgpDQoNCmBgYA0KDQoNCg0K</div>
 
 
 
