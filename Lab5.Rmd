@@ -15,11 +15,22 @@ output: html_notebook
 
 ## Problem 1:
 
+```{r}
+x <-c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, -5.7, -7.9, -4.9, 28.7, 4.9)
+sort.x <- sort(x)
 
+q1.x <- quantile(x,0.25)
+q3.x <- quantile(x,0.75)
+IQR.x <- q3.x - q1.x
 
+sort.x
+length(x)
+q1.x[[1]]
+q3.x[[1]]
+IQR.x[[1]]
+```
 
-
-
+I have sorted x and found the length of x to be 12. This indicates to me that the first quartile should be the 3rd term in and that third quartile should be the 9th term. We should also note that 28.7 is an outlier and will skew this. Thus, q1.x produced -4.525 which seems reasonably close to the assumption, and q3.x produced 4.9, which is the correct value. 4.9-(-4.525)= 9.425 and so the value produced by IQR.x is correct.
 
 
 
