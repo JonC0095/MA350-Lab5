@@ -1,0 +1,27 @@
+---
+title: "Lab #5 MA 350-01, Spring 2020"
+author: "Carlin, Jonathan"
+output: html_notebook
+---
+
+# Git and GitHub
+
+## Problem 0:
+
+### URL: https://github.com/JonC0095/MA350-Lab5
+
+
+# Finding Outlier Using Tukey's Rule-of-Thumb
+
+## Problem 1:
+
+
+
+
+
+
+
+
+
+
+
