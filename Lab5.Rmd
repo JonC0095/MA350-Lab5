@@ -19,15 +19,16 @@ output: html_notebook
 x <-c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, -5.7, -7.9, -4.9, 28.7, 4.9)
 sort.x <- sort(x)
 
-q1.x <- quantile(x,0.25)
-q3.x <- quantile(x,0.75)
-IQR.x <- q3.x - q1.x
+q1.x <- quantile(x,0.25)[[1]]
+q3.x <- quantile(x,0.75)[[1]]
+IQR.x <- (q3.x - q1.x)
 
+x
 sort.x
 length(x)
-q1.x[[1]]
-q3.x[[1]]
-IQR.x[[1]]
+q1.x
+q3.x
+IQR.x
 ```
 
 I have sorted x and found the length of x to be 12. This indicates to me that the first quartile should be the 3rd term in and that third quartile should be the 9th term. We should also note that 28.7 is a possible outlier and might skew this. Thus, q1.x produced -4.525 which seems reasonably close to the assumption, and q3.x produced 4.9, which is the correct value. 4.9-(-4.525)= 9.425 and so the value produced by IQR.x is correct.
@@ -38,6 +39,8 @@ I have sorted x and found the length of x to be 12. This indicates to me that th
 
 quartiles <- function(x){
   
+  length(x)
+  
   quantiles.x <- quantile(x, probs=c(0.25, 0.75))
   
   quant.v <- c(quantiles.x[[1]],quantiles.x[[2]], quantiles.x[[2]]-quantiles.x[[1]])
@@ -47,6 +50,7 @@ quartiles <- function(x){
 }
 
 quartiles(x)
+
 ```
 
 The results, (-4.525), 4.9, & 9.452, are the same to those found in problem 1 for the first quantile, third quantile, & IQR, respectively.
@@ -54,13 +58,151 @@ The results, (-4.525), 4.9, & 9.452, are the same to those found in problem 1 fo
 ## Problem 3:
 ```{r}
 
-Outlier.min
+#low.outlier.max <- q1.x - (1.5 * IQR.x)
+#high.outlier.min <- q3.x + (1.5 * IQR.x)
+#needed to come back and fix this because it is hard coded in and not based off x
 
-Outlier.max
+low.outlier.max <- quartiles(x)[1] - (1.5 * quartiles(x)[3])
+high.outlier.min <- quartiles(x)[2] + (1.5 * quartiles(x)[3])
 
-quartiles(x)
+i <- 1
+
+for(i in 1:(length(x)-1)){
+  
+  if(x[i] < low.outlier.max){
+    low.outlier.x <- x[i]
+    i <- i + 1
+  }
+  else if(x[i] > high.outlier.min){
+    high.outlier.x <- x[i]
+    i <- i + 1
+  }
+  else{
+    i <- i + 1
+  }
+
+}
+
+
+if(exists("low.outlier.x")== TRUE){ print("Lower outlier(s):")
+  show(low.outlier.x) }
+if(exists("high.outlier.x")== TRUE){ print("Upper outlier(s):")
+  show(high.outlier.x)  }
+
 
 ```
+
+We can see that 28.7 is an upper outlier, this agrees with problem 1 answer.
+
+## Problem 4:
+
+I see I misunderstood problem 3; I will adapt to fit problem 4.
+
+```{r}
+
+tukey.outlier <- function(x){
+  
+bool.outlier <- logical(length(x))
+
+
+i <- 1
+
+for(i in 1:(length(x)-1)){
+  
+  if(x[i] < low.outlier.max){ bool.outlier[i]=TRUE
+    i <- i + 1 }
+  
+  else if(x[i] > high.outlier.min){ bool.outlier[i]=TRUE
+    i <- i + 1  }
+  
+  else{ bool.outlier[i]=FALSE
+    i <- i + 1  }
+}
+
+
+return(bool.outlier)
+  
+}
+
+x
+tukey.outlier(x)
+```
+
+we can see, from problem 3 and 4 that 28.7 is the only outlier. 
+ 
+## Problem 5:
+```{r}
+
+test.tukey.outlier <- function( FUN = tukey.outlier){
+  
+  x <-c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, -5.7, -7.9, -4.9, 28.7, 4.9)
+  bool.x <-c(FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, FALSE)
+  scalar.x <- ((0.1)*x)
+  
+  
+  i <- 1
+  
+  for(i in 1:(length(x)-1)){
+    
+  if( (tukey.outlier(x)[i] == bool.x[i]) & (tukey.outlier(-x)[i] == bool.x[i]) ){
+    
+    outcome.x <- TRUE
+    outcome_x <- TRUE
+    
+    if( (tukey.outlier(scalar.x)[i] == bool.x[i]) ){
+      outcome.scalar <- TRUE
+    }else{ 
+      return(FALSE)  
+    }
+    
+    i <- i + 1 
+  } 
+  
+    else{ 
+      return(FALSE)  
+    }
+    
+  }
+  
+  outcome <- c(outcome.x, outcome_x,outcome.scalar)
+  
+  
+  return(outcome)
+  
+}
+
+test.tukey.outlier(x)
+
+```
+
+## Problem 6: 
+
+An outlier in the data values is -28.7; changing the sign does not change their relative distance because we are affecting the whole set.
+
+
+## Problem 7 & 8:
+
+```{r}
+
+tukey.outlier(x)
+test.tukey.outlier(x)
+
+```
+
+## Problem 9:
+
+An outlier in the data values is (0.1)(28.7)=2.87; multiplying by a scalar does not change their relative distance because we are affecting the whole set.
+
+## Problem 10 & 11:
+
+I began to modify test.tukey.outlier to include 0.1*x as an additiional test case; however, I ran into issues.
+To start, I realized I had code that would not be altered by the change in x but rather were hard coded in.
+Once fixed, I realized That I had to be more careful with my usage of & vs &&; however I am stuck now..
+When multiplying by a scalar I have an issue.
+
+
+
+
 
 
 
